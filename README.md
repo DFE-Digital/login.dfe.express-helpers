@@ -13,7 +13,7 @@ The following example will sanitize both req.query and req.body values
 ```javascript
 const express = require("express");
 const bodyParser = require("body-parser");
-const sanitization = require("login.dfe.sanitization");
+const sanitization = require("login.dfe.express-helpers/sanitization");
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -71,7 +71,7 @@ the error and return a 500 result. It takes an object that can have a `logger` a
 `errorPageRenderer` is optional, but if passed, should be a function that can take an error and return an object with properties `content` and `contentType`. These will be used as the respective details in the response.
 
 ```javascript
-const { getErrorHandler } = require("login.dfe.express-error-handling");
+const { getErrorHandler } = require("login.dfe.express-helpers/error-handling");
 const errorPageRenderer = (error) => {
   render("500", { error });
 };
@@ -85,7 +85,7 @@ The `asyncWrapper` can be used to wrap async actions for express, so that errors
 passed through the standard express error chain.
 
 ```javascript
-const { asyncWrapper } = require("login.dfe.express-error-handling");
+const { asyncWrapper } = require("login.dfe.express-helpers/error-handling");
 
 app.use(
   "/my-route",
@@ -102,7 +102,7 @@ app.use(
 The package includes an EJS error page renderer:
 
 ```javascript
-const { getErrorHandler, ejsErrorPages } = require('login.dfe.express-error-handling');
+const { getErrorHandler, ejsErrorPages } = require("login.dfe.express-helpers/error-handling");
 
 const showErrorDetailsOnPage = false; // You can include error details on the page in appropriate environments
 

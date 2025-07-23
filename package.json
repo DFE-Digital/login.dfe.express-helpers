@@ -1,6 +1,6 @@
 {
   "name": "login.dfe.express-helpers",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0",
   "description": "Sanitization and error handling middleware for express applications",
   "exports": {
     "./error-handling": "./lib/errorHandling/index.js",

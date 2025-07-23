@@ -1,5 +1,5 @@
 const http = require("http");
-const setCookiesAsTransient = require("../../lib/errorHandling/setCookiesAsTransient");
+const setCookiesAsTransient = require("../../lib/http/setCookiesAsTransient");
 
 describe("setCookiesAsTransient", () => {
   let req, res, next, calledNext, cookiesSet;

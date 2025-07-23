@@ -4,7 +4,8 @@
   "description": "Sanitization and error handling middleware for express applications",
   "exports": {
     "./error-handling": "./lib/errorHandling/index.js",
-    "./sanitization": "./lib/sanitization/index.js"
+    "./sanitization": "./lib/sanitization/index.js",
+    "./http": "./lib/http/index.js"
   },
   "files": [
     "lib"

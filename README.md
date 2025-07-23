@@ -1,8 +1,20 @@
 # login.dfe.express-helpers
 
-Sanitization and error handling middleware for express applications
+Sanitization, error handling middleware, and http helpers for express applications
 
 [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
+
+## Contents
+
+- [Usage](#usage)
+  - [Sanitization](#sanitization)
+    - [Customise what is sanitized](#customise-what-is-sanitized)
+    - [Customise sanitization](#customise-sanitization)
+  - [Error Handler middleware](#error-handler-middleware)
+    - [asyncWrapper](#asyncwrapper)
+    - [EJS Error Page Renderer](#ejs-error-page-renderer)
+  - [Http helpers](#http-helpers)
+    - [Transient cookies middleware](#transient-cookies-middleware)
 
 # Usage
 
@@ -121,4 +133,26 @@ app.use(getErrorHandler({
   logger,
   errorPageRenderer,
 }));
+```
+
+## Http helpers
+
+Provides helper functions for common http related activities.
+
+### Transient cookies middleware
+
+This middleware intercepts HTTP Set-Cookie headers and modifies cookies that match specified name patterns to make them transient, i.e., removes any Expires or Max-Age attributes.
+
+By removing persistence attributes the cookies will be treated as session cookies, lasting only for the duration of the browser session. This is useful in situations where sensitive cookies should not be persisted across sessions.
+
+```javascript
+const { setCookiesAsTransient } = require("login.dfe.express-helpers/http");
+
+// target all cookies that match the regular expression /\.sig$/
+app.use(
+  setCookiesAsTransient({
+    pattern: [/\.sig$/],
+    handler: your - handler - here,
+  }),
+);
 ```

@@ -75,10 +75,9 @@ app.use(
 
 ## Error Handler middleware
 
-The error handler middleware provides a standard express error handler middleware function that will log
-the error and return a 500 result. It takes an object that can have a `logger` and `errorPageRenderer`.
+The error handler middleware provides a standard express error handler middleware function that will log the error and return a 500 result. It takes an object that can have a `logger` and `errorPageRenderer`.
 
-`logger` should be an object that has an error function on it, with a signature `error(message, details)`; where message is a string nad details is an object.
+`logger` should be an object that has an error function on it, with a signature `error(message, details)`; where message is a string and details is an object.
 
 `errorPageRenderer` is optional, but if passed, should be a function that can take an error and return an object with properties `content` and `contentType`. These will be used as the respective details in the response.
 
@@ -89,6 +88,30 @@ const errorPageRenderer = (error) => {
 };
 
 app.use(getErrorHandler(logger, errorPageRenderer));
+```
+
+A more complete example that also defines the assets url for loading, JS, CSS, fonts etc from the CDN.
+
+```javascript
+const {
+  getErrorHandler,
+  ejsErrorPages,
+} = require("login.dfe.express-helpers/error-handling");
+
+const errorPageRenderer = ejsErrorPages.getErrorPageRenderer(
+  {
+    help: config.hostingEnvironment.helpUrl,
+    assets: assetsUrl,
+  },
+  config.hostingEnvironment.env === "dev",
+);
+
+app.use(
+  getErrorHandler({
+    logger,
+    errorPageRenderer,
+  }),
+);
 ```
 
 ### asyncWrapper
